@@ -11,14 +11,14 @@ void ControlHandler(DWORD request);
 
 int Run()
 {
-    LoadLibraryA("C:\\Temp\\sillylibrary.dll");
+    LoadLibrary(TEXT("SillyLibrary.dll"));
     return 0;
 }
 
 int main()
 {
     SERVICE_TABLE_ENTRY ServiceTable[2];
-    ServiceTable[0].lpServiceName = "VulnSvc";
+    ServiceTable[0].lpServiceName = TEXT("VulnSvc");
     ServiceTable[0].lpServiceProc = (LPSERVICE_MAIN_FUNCTION)ServiceMain;
 
     ServiceTable[1].lpServiceName = NULL;
@@ -38,7 +38,7 @@ void ServiceMain(int argc, char** argv)
     ServiceStatus.dwCheckPoint = 0;
     ServiceStatus.dwWaitHint = 0;
 
-    hStatus = RegisterServiceCtrlHandler("VulnSvc", (LPHANDLER_FUNCTION)ControlHandler);
+    hStatus = RegisterServiceCtrlHandler(TEXT("VulnSvc"), (LPHANDLER_FUNCTION)ControlHandler);
     Run();
 
     ServiceStatus.dwCurrentState = SERVICE_RUNNING;
